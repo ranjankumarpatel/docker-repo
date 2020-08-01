@@ -4,7 +4,7 @@ RUN apt-get update &&  apt-get upgrade -y &&  apt install -y build-essential dir
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/'
 RUN apt-get install -y r-base r-base-dev
 RUN apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev gdebi-core
-RUN R -e "install.packages(c('shinyjs'))"
+RUN R -e "install.packages(c('shinyjs','rmarkdown'))"
 RUN apt-get install -y gdebi-core
 RUN wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.14.948-amd64.deb
 RUN gdebi -n shiny-server-1.5.14.948-amd64.deb
