@@ -8,6 +8,7 @@ RUN R -e "install.packages(c('shinyjs','rmarkdown'))"
 RUN apt-get install -y gdebi-core
 RUN wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.14.948-amd64.deb
 RUN gdebi -n shiny-server-1.5.14.948-amd64.deb
+RUN R -e "install.packages(c('purrr','dplyr','pool','DBI','shiny','RMySQL','shinydashboard','rvest','tidyr','stringr','shinyjs','shinycssloaders','shinyjs','v8','DT','proto','rPython','RMySQL','highcharter'))"
 RUN chmod -R 755 /srv/shiny-server
 EXPOSE 3838
 CMD /usr/bin/shiny-server
