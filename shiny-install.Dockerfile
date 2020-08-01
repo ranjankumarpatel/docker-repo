@@ -7,7 +7,7 @@ RUN apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev gdebi-core
 RUN R -e "install.packages(c('shinyjs'))"
 RUN apt-get install -y gdebi-core
 RUN wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.14.948-amd64.deb
-RUN gdebi shiny-server-1.5.14.948-amd64.deb
+RUN gdebi shiny-server-1.5.14.948-amd64.deb -y
 RUN chmod -R 755 /srv/shiny-server
 EXPOSE 3838
 CMD /usr/bin/shiny-server
