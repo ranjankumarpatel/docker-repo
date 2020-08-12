@@ -11,6 +11,7 @@ RUN gdebi -n shiny-server-1.5.14.948-amd64.deb
 # RUN R -e "install.packages(c('gsubfn','purrr','dplyr','pool','DBI','shiny','RMySQL','shinydashboard','rvest','tidyr','stringr','shinyjs','shinycssloaders','shinyjs','v8','DT','proto','rPython','highcharter'))"
 COPY shiny-requirements.sh .
 RUN bash -v shiny-requirements.sh
+RUN bash -v shiny-requirements.sh
 RUN chmod -R 755 /srv/shiny-server
 EXPOSE 3838
 CMD /usr/bin/shiny-server
