@@ -1,0 +1,56 @@
+---
+- hosts: localhost
+  strategy: debug
+  gather_facts: yes
+  become: yes
+  become_user: root
+  tasks:
+  - name: Update and upgrade apt packages
+    apt:
+      force_apt_get: yes
+      upgrade: yes
+      update_cache: yes
+      cache_valid_time: 86400
+
+  - name: apt module install
+    apt:
+      force_apt_get: yes
+      name: "{{ packages }}"
+      state: present
+    vars:
+      packages:
+        - fontconfig
+        - libfreetype6
+        - libjpeg-turbo8
+        - libpng16-16
+        - libssl1.0.0
+        - libx11-6
+        - libxcb1
+        - libxext6
+        - libxrender1
+        - xfonts-75dpi
+        - xfonts-base
+        - wget
+
+  - name: Download wkhtmltopdf
+    get_url:
+      url: https://downloads.wkhtmltopdf.org/0.12/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb
+      dest: cd /tmp/wkhtmltox_0.12.5-1.bionic_amd64.deb
+
+  - name: Install a wkhtmltox .deb package from the internet.
+    apt:
+      deb: https://downloads.wkhtmltopdf.org/0.12/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb
+
+  - apt:
+      pgk: '{{item}}'
+    with_items:
+      - debconf-set-selections
+      - ttf-mscorefonts-installer
+      - libfontconfig
+  - name: 'Accept License'
+    shell: 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections'
+  - apt: pkg=ttf-mscorefonts-installer
+
+  - name: 'fc-cache -f -v'
+      shell: 'fc-cache -f -v'
+        - apt: fc-cache -f -v

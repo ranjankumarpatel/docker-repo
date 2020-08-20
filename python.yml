@@ -1,0 +1,57 @@
+---
+- hosts: localhost
+  strategy: debug
+  gather_facts: yes
+  become: yes
+  become_user: root
+  tasks:
+  - name: Update and upgrade apt packages
+    apt:
+      force_apt_get: yes
+      upgrade: yes
+      update_cache: yes
+      cache_valid_time: 86400
+
+  - name: apt module install
+    apt:
+      force_apt_get: yes
+      name: "{{ packages }}"
+      state: present
+    vars:
+      packages:
+        - python3
+        - python3-pip
+        - python3-mysql.connector
+        - python3-mysqldb
+        - python3-cr*
+        - python3-pkg-resources
+        - uwsgi
+        - uwsgi-plugin-python3
+        - zip
+        - unzip
+        - virtualenv
+
+  - name: Update and upgrade apt packages
+    apt:
+      force_apt_get: yes
+      upgrade: yes
+      update_cache: yes
+      cache_valid_time: 86400
+
+  - name: apt module install
+    apt:
+      force_apt_get: yes
+      name: "{{ packages }}"
+      state: present
+    vars:
+      packages:
+        - memcached
+        - libmemcached-tools
+        - python3-magic
+
+  - name: pip install
+    shell: |
+      python3 -m pip install pip -U
+      python3 -m pip install boto docker-py -U
+    args:
+      chdir: /tmp
