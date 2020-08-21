@@ -30,6 +30,7 @@
         - zip
         - unzip
         - virtualenv
+        - python3-openssl
 
   - name: Update and upgrade apt packages
     apt:
